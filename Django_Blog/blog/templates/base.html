@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <title>{% block title %} Base {% endblock title %}</title>
+    <style>{% block extra_css %}{% endblock extra_css %}</style>
+</head>
+<body>
+        {% comment %} sidebar starting {% endcomment %}
+       <nav>
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+            <a href="{% url 'index' %}">Home</a>
+            <a href="#">All Blog</a>
+            <a href="#">All Authors</a>
+              <ul>
+                  <li><h4>Author 1</h4></li>
+                  <li><h4>Author 2</h4></li>
+                  <li><h4>Author 3</h4></li>
+              </ul> 
+            <a href="#">Login</a>
+            <a href="#">Logout</a>
+          </div>
+          
+          <div id="main">
+            <button class="openbtn" onclick="openNav()">☰</button>     
+            <div class="row justify-content-center">
+                <div class="col-md-6 offset-md-">
+                    <h3>Welcome To Art Blog</h3>
+                    <h4>
+                        Scientists, humanists, and art lovers alike value art not just for its beauty, but also for its social and epistemic importance; that is, for its communicative nature, its capacity to increase one's self-knowledge and encourage personal growth, and its ability to challenge our schemas and preconceptions.
+                    </h4>
+                </div>
+            </div> 
+           
+        </div>
+       </nav>
+       {% comment %} sidebar ending {% endcomment %}
+       {% block content %}
+       
+       {% endblock content %}
+     
+</body>
+
+<script src="{% static 'script_file.js' %}"></script>
+</html>
