@@ -52,7 +52,7 @@
     {% csrf_token %}
         {{login_form}}
     <button class="btn btn-warning" type="submit">Login</button>
-    <p class="text-center">Don't have an acount? <a href="/accounts/">signup</a> instead.</p>
+    <p class="text-center">Don't have an acount? <a href="{% url 'sign_up' %}">signup</a> instead.</p>
 </form>
 </body>
 </html>
