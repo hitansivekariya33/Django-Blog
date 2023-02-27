@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+    <style>
+        p{
+            color:darkgrey;
+        }
+        span{
+            color:grey;
+        }
+        h4{
+            color:orange
+        }
+        .card{
+            padding:20px;
+        }
+        p span{
+            color:orange;
+            font-weight:bold;
+        }
+        h2 span{
+            color:orange;
+        }       
+    </style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="card">
+    <h2><span> Author: </span>{{author.name}}</h2>
+    <p><span>Author biography: </span> {{author.about_author}}</p>
+    <h4>Blog List</h4>
+        {% for blog in blog_list %}
+            <ol style="list-style-type:square">
+                <li>
+                    <a href="{% url 'blogdetail' blog.id %}"><b>Blog Title: {{blog.title}}</b></a> <br>
+                    <span>Published Date: {{blog.blog_pub_date}}</span>
+                </li>
+            </ol>
+        {% endfor %}
+</div>
+{% endblock content %}

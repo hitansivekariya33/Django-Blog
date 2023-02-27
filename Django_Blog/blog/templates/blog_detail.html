@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+    <style>
+        p{
+            margin:20px;
+        }
+        h2{
+            color:orange;
+            text-align:center;
+            padding:20px;
+        }
+        h5
+        {
+            font-weight:200px;
+        }
+        .card{
+            padding:20px;
+            margin:0 90px 0 90px;
+        }
+        span{
+            color:orange;
+            font-weight:bolder;
+        }
+        p{
+            color:grey;
+        }
+    </style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="card">
+        <h2>{{blog.title}}</h2>
+        <h5>{{blog.blog_content}} <span>-{{blog.author}}</span></h5>
+        <p>Published Date :~ {{blog.blog_pub_date}}</p>
+</div>  
+<button type="submit" class="btn btn-warning"><a href=" {% url 'comment' blog.id %}">Add Comment</a></button>
+
+{% endblock content %}
