@@ -1,38 +1,44 @@
-from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView,DetailView
-from django.views.generic.edit import CreateView
-from .form import CommentForm
 from .models import Author,Blog
+from .form import CommentForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render,redirect
 # Create your views here.
 
-class index(TemplateView):
+class IndexView(TemplateView):
     template_name = "base.html"
 
 class AuthorListView(ListView):
     model = Author
-    template_name = 'author_list.html'
 
 class AuthorDetailView(DetailView):
     model = Author
-    template_name = 'author_detail.html'
     context_object_name = 'author'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['blog_list'] = Blog.objects.filter(author=self.object)
-        return context
-
+        
 class BlogListView(ListView):
     model = Blog
-    template_name = 'blog_list.html' 
     paginate_by = 5   
 
 class BlogDetailView(DetailView):
     model = Blog
-    template_name = 'blog_detail.html'
     context_object_name = 'blog'
 
-class CommentFormView(CreateView):
-    form_class = CommentForm
-    template_name = 'Comment_Form.html'
+@login_required(login_url='sign_in')
+def commentview(request,pk):
+    blog = Blog.objects.filter(pk=pk).first()
+    if request.method == 'POST':
+        form = CommentForm(request.POST) 
+        if form.is_valid():
+            object = form.save(commit=False)
+            object.blog_id = blog.pk
+            object.save()
+            return redirect(object.blog.get_absolute_url())
+    else:
+        form = CommentForm()
+
+    context = {
+        'blog' : blog,
+        'form' : form,
+    }            
+    return render(request,'blog/comment_form.html',context)

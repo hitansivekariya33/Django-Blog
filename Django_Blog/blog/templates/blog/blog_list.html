@@ -32,9 +32,9 @@
 {% block content %}
    {% for blog in page_obj %}
         <div class="card">
-            <a href=" {% url 'blogdetail' blog.id %}"> <h4><span>Blog Title:</span> {{blog.title}}</h4></a>
+            <a href=" {{blog.get_absolute_url}}"> <h4><span>Blog Title:</span> {{blog.title}}</h4></a>
             <a href="{% url 'authordetail' blog.author_id %}"><h5><span>Created by:</span> {{blog.author}}</h5></a>
-            <h6><span>Publish at:</span> {{blog.blog_pub_date}}</h6>
+            <h6><span>Publish at:</span> {{blog.created_at}}</h6>
         </div><br>
     {% endfor %} 
 

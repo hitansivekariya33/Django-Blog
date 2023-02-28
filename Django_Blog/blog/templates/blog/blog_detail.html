@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+    <style>
+        p{
+            margin:20px;
+        }
+        .card{
+            padding:20px;
+            margin:0 90px 0 90px;
+        }
+        span{
+            color:orange;
+            font-weight:bolder;
+        }
+    </style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="card">
+        <span>{{blog.title}}</span>
+        <p>{{blog.blog_content}} <span>-{{blog.author}}</span></p>
+        <p>Published Date :~ {{blog.created_at}}</p>
+</div><br>
+
+<div class="card">
+    <h1>Comments:</h1>
+        {% for comment in blog.comments.all %}
+            <p>{{comment.comment_content}}</p>
+            <p>Published at :~ {{comment.created_at}}</p>  
+        {% endfor %}
+        <button type="submit" class="btn btn-warning"><a href=" {% url 'comment' blog.id %}">Leave a Comment</a></button>
+</div>
+
+{% endblock content %}
