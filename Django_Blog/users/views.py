@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic import View
 
 # signup 
-class Sign_up(View):
+class SignUp(View):
     template_name = 'signup.html'
     def post(self,request):
         form = Signup(request.POST)
@@ -20,7 +20,7 @@ class Sign_up(View):
         return render(request,self.template_name,{'signup_form':form})
 
 #login 
-class Sign_in(View):
+class SignIn(View):
     template_name = 'login.html'
     def post(self, request):
         form = AuthenticationForm(request=request, data=request.POST)

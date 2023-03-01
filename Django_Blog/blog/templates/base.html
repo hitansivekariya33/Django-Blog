@@ -16,35 +16,26 @@
         <div id="mySidebar" class="sidebar">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
             <a href="{% url 'index' %}">Home</a>
-            <a href="#">All Blog</a>
-            <a href="#">All Authors</a>
-              <ul>
-                  <li><h4>Author 1</h4></li>
-                  <li><h4>Author 2</h4></li>
-                  <li><h4>Author 3</h4></li>
-              </ul> 
+            <a href="{% url 'bloglist' %}">All Blog</a>
+            <a href="{% url 'authorlist' %}">All Authors</a>
             <a href="{% url 'sign_in' %}">Login</a>
             <a href="{% url 'sign_out' %}">Logout</a>
           </div>
           
           <div id="main">
-            <button class="openbtn" onclick="openNav()">☰</button>     
+            <button class="openbtn" onclick="openNav()">☰</button>  
+       <nav>   
+        {% comment %} sidebar ending {% endcomment %}  
             <div class="row justify-content-center">
                 <div class="col-md-6 offset-md-">
                     <h3>Welcome To Art Blog</h3>
-                    <h4>
-                        Scientists, humanists, and art lovers alike value art not just for its beauty, but also for its social and epistemic importance; that is, for its communicative nature, its capacity to increase one's self-knowledge and encourage personal growth, and its ability to challenge our schemas and preconceptions.
-                    </h4>
-                </div>
-            </div> 
-           
-        </div>
-       </nav>
-       {% comment %} sidebar ending {% endcomment %}
-       {% block content %}
+                    <br>
+                    {% block content %}
        
-       {% endblock content %}
-     
+                    {% endblock content %}
+                </div>
+            </div>         
+        </div>
 </body>
 
 <script src="{% static 'script_file.js' %}"></script>

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block extra_css %}
+    <style>
+        h6 span{
+            color:grey;
+        }
+        .card{
+            padding:20px;
+        }
+        h6{
+            color:grey;
+        }
+        h5{
+            color:orange;
+        }
+        .round {
+            border-radius: 50%;
+        }
+        footer a {
+            text-decoration: none;
+            display: inline-block;
+            padding: 8px 16px;
+            background-color:orange;
+            color:white;
+        }       
+        .card a{
+            color:black;
+        }
+    </style>
+{% endblock extra_css %}
+
+{% block content %}
+   {% for blog in page_obj %}
+        <div class="card">
+            <a href=" {{blog.get_absolute_url}}"> <h4><span>Blog Title:</span> {{blog.title}}</h4></a>
+            <a href="{% url 'authordetail' blog.author_id %}"><h5><span>Created by:</span> {{blog.author}}</h5></a>
+            <h6><span>Publish at:</span> {{blog.created_at}}</h6>
+        </div><br>
+    {% endfor %} 
+
+    {% comment %} -------craete pagination---------- {% endcomment %}
+    <div class="pagination">
+        <footer>
+                    {% if page_obj.has_previous %}
+                      <a href="?page={{ page_obj.previous_page_number }}" class="previous round">&#8249;</a>
+                    {% endif %}
+                    <span>
+                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                      <a href="?page={{ page_obj.next_page_number }}" class="next round">&#8250;</a>
+                    {% endif %}
+        </footer>
+    </div>
+{% endblock content %}

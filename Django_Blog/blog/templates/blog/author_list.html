@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+    <style>
+        h2{
+            text-align:center;
+        }
+        ol li a 
+        {
+            color:black;
+            font-weight:bold;
+            font-size:20px;
+        }
+        .card
+        {
+            margin-top:20px;
+            padding:10px;
+        }
+    </style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="card">
+    <h2 class="card-title">Author List</h2>
+        {% for author in object_list %}
+            <ol style="list-style-type:square">
+                <li>
+                    <a href="{% url 'authordetail' author.id %}">{{author.name}}</a><br>
+                </li>
+            </ol>
+        {% endfor %}
+</div>
+{% endblock content %}
