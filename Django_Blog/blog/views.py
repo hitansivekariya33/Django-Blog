@@ -1,5 +1,5 @@
 from django.views.generic.base import TemplateView
-from django.views.generic import ListView,DetailView
+from django.views.generic import ListView,DetailView,CreateView
 from .models import Author,Blog
 from .form import CommentForm
 from django.contrib.auth.decorators import login_required
@@ -42,3 +42,13 @@ def commentview(request,pk):
         'form' : form,
     }            
     return render(request,'blog/comment_form.html',context)
+
+class AuthorForm(CreateView):
+    model = Author
+    fields = ['name','about_author']
+    success_url = '/blog/blogger/'
+
+class BlogForm(CreateView):
+    model = Blog
+    fields = ['author','title','blog_content']
+    success_url = '/blog/blogs/'
