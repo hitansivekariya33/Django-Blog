@@ -96,5 +96,5 @@ class CommentModelTest(TestCase):
     # Testcase for check comment_content
     def test_object_name(self):
         comment = Comment.objects.get(id=1)
-        get_object_name = comment.comment_content
+        get_object_name = comment.comment_content          
         self.assertEqual(get_object_name, str(comment))
