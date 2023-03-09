@@ -1,0 +1,11 @@
+name: Run tests
+on: push
+jobs:
+  build:
+    name: Install requirements and execute tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Run Tests
+        run: python manage.py test blog.tests
