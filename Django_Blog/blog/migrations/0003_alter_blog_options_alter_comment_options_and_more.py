@@ -5,38 +5,45 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0002_alter_blog_options'),
+        ("blog", "0002_alter_blog_options"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='blog',
-            options={'ordering': ['-created_at']},
+            name="blog",
+            options={"ordering": ["-created_at"]},
         ),
         migrations.AlterModelOptions(
-            name='comment',
-            options={'ordering': ['-created_at']},
+            name="comment",
+            options={"ordering": ["-created_at"]},
         ),
         migrations.RenameField(
-            model_name='blog',
-            old_name='blog_pub_date',
-            new_name='created_at',
+            model_name="blog",
+            old_name="blog_pub_date",
+            new_name="created_at",
         ),
         migrations.RenameField(
-            model_name='comment',
-            old_name='commented_date',
-            new_name='created_at',
+            model_name="comment",
+            old_name="commented_date",
+            new_name="created_at",
         ),
         migrations.AlterField(
-            model_name='blog',
-            name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='blogs', to='blog.author'),
+            model_name="blog",
+            name="author",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="blogs",
+                to="blog.author",
+            ),
         ),
         migrations.AlterField(
-            model_name='comment',
-            name='blog',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='blog.blog'),
+            model_name="comment",
+            name="blog",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="comments",
+                to="blog.blog",
+            ),
         ),
     ]

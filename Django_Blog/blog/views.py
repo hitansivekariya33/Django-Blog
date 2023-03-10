@@ -1,8 +1,8 @@
 from django.views.generic.base import TemplateView
-from django.views.generic import ListView,DetailView
+from django.views.generic import ListView,DetailView,CreateView,FormView
 from .models import Author,Blog
 from .form import CommentForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render,redirect
 # Create your views here.
 
@@ -24,21 +24,38 @@ class BlogDetailView(DetailView):
     model = Blog
     context_object_name = 'blog'
 
-@login_required(login_url='sign_in')
-def commentview(request,pk):
-    blog = Blog.objects.filter(pk=pk).first()
-    if request.method == 'POST':
-        form = CommentForm(request.POST) 
-        if form.is_valid():
-            object = form.save(commit=False)
-            object.blog_id = blog.pk
-            object.save()
-            return redirect(object.blog.get_absolute_url())
-    else:
+class CommentView(LoginRequiredMixin, FormView):
+    login_url = 'sign_in'
+    def get(self, request, pk):
+        blog = Blog.objects.filter(pk=pk).first()
         form = CommentForm()
+        context = {
+            'blog': blog,
+            'form': form,
+        }
+        return render(request, 'blog/comment_form.html', context)
 
-    context = {
-        'blog' : blog,
-        'form' : form,
-    }            
-    return render(request,'blog/comment_form.html',context)
+    def post(self, request, pk):
+        blog = Blog.objects.filter(pk=pk).first()
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.blog_id = blog.pk
+            comment.save()
+            return redirect(comment.blog.get_absolute_url())
+
+        context = {
+            'blog': blog,
+            'form': form,
+        }
+        return render(request, 'blog/comment_form.html', context)
+
+class AuthorForm(CreateView):
+    model = Author
+    fields = ['name','about_author']
+    success_url = '/blog/blogger/'
+
+class BlogForm(CreateView):
+    model = Blog
+    fields = ['author','title','blog_content']
+    success_url = '/blog/blogs/'

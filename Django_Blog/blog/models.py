@@ -22,7 +22,7 @@ class Blog(BaseModel):
     blog_content = models.TextField()
 
     def __str__(self):
-        return self.title
+            return f'{self.title}' + f'{self.blog_content}' 
 
     def get_absolute_url(self):
         return reverse("blogdetail", kwargs={"pk": self.pk})

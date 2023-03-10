@@ -37,8 +37,9 @@
             <h6><span>Publish at:</span> {{blog.created_at}}</h6>
         </div><br>
     {% endfor %} 
-
-    {% comment %} -------craete pagination---------- {% endcomment %}
+    <div class="card">
+        <button class="btn btn-warning" type="submit"><a href="{% url 'blogform' %}">Add Blog</a></button>
+    </div>
     <div class="pagination">
         <footer>
                     {% if page_obj.has_previous %}

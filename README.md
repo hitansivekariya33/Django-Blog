@@ -27,3 +27,4 @@ To get this project and running locally on your computer:
    python manage.py test blog.tests 
 
 If you using python3 please replace the 'python' with 'python3'
+
